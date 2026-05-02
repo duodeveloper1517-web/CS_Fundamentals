@@ -7,7 +7,8 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://cs-fundamentals-ivory.vercel.app' // Add your actual frontend Vercel URL
+  'https://cs-fundamentals-frontend.vercel.app',
+  'https://cs-fundamentals-ivory.vercel.app'
 ];
 
 app.use(cors({
