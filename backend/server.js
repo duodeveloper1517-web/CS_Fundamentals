@@ -5,7 +5,21 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://cs-fundamentals-ivory.vercel.app' // Add your actual frontend Vercel URL
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
@@ -24,3 +38,5 @@ mongoose.connect(process.env.MONGO_URI)
     );
   })
   .catch(err => console.error('MongoDB error:', err.message));
+
+module.exports = app;
